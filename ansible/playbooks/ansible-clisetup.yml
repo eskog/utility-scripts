@@ -1,0 +1,24 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: "Add group"
+    group:
+     name=ansible
+  
+  - name: "Add user"
+    user: 
+     name=ansible
+     group=ansible
+     groups=ansible,root
+
+  - name: "Create .ssh"
+    file:
+     path=/home/ansible/.ssh state=directory
+
+  - name: "Add ssh key to new user"
+    copy:
+     src=/root/scripts/ansible/files/ansiblecert.pub
+     dest=/home/ansible/.ssh/authorized_keys
+     mode=0600
+     owner=ansible

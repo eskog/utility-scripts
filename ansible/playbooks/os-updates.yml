@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: "Debian update"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Kali"
+    apt:
+     update_cache=yes
+     upgrade=full
+ 
+  - name: "CentOS update"
+    when: ansible_os_family == "RedHat"
+    yum:
+     name='*'
+     update_cache=yes
+     state=latest 

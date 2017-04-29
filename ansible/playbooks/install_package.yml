@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: "Debian install"
+    when: ansible_os_family == "Debian" or ansible_os_family == "Kali"
+    apt:
+     name=git
+     update_cache=yes
+     state=latest
+ 
+  - name: "CentOS install"
+    when: ansible_os_family == "RedHat"
+    yum:
+     name='git'
+     update_cache=yes
+     state=latest 
